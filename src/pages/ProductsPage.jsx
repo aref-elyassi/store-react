@@ -5,11 +5,11 @@ import { useProducts } from "../context/ProductContext";
 import styles from './ProductsPage.module.css'
 import { useEffect, useState } from "react";
 
-import { createQueryObject, filterProducts, getInitialQuery, searchProducts } from "../helpers/helper";
+import { filterProducts, getInitialQuery, searchProducts } from "../helpers/helper";
 import { useSearchParams } from "react-router-dom";
 import SeachBox from "../components/SeachBox";
 import Sidebar from "../components/Sidebar";
-import { categories } from "../constant/list";
+
 
 
 
@@ -29,7 +29,7 @@ function ProductsPage() {
     setSearchParams(query)
     let finalProducts = searchProducts(products, query.search)
     finalProducts = filterProducts(finalProducts, query.category)
-    console.log(finalProducts);
+   
     setDisplayed(finalProducts)
   }, [query])
 

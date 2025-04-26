@@ -2,26 +2,28 @@ import { Link } from 'react-router-dom'
 import styles from './Card.module.css'
 import { TbListDetails, TbShoppingBagCheck } from 'react-icons/tb'
 import { shortenText } from '../helpers/helper'
+import { useCart } from '../context/CartContext'
 
-function Card({data}) {
-  const {id,title,image,price}=data
+function Card({ data }) {
+    const [state, dispatch] = useCart()
+    const { id, title, image, price } = data
     return (
-    <div className={styles.card}>
-        <img src={image} alt={title} />
-        <h3>{shortenText(title)} </h3>
-        <p>{price} $</p>
-        <div className={styles.actions}>
-            <Link to={`/products/${id}`}>
-                <TbListDetails/>
-            </Link>
-            <div>
-                <button>
-                    <TbShoppingBagCheck/>
-                </button>
+        <div className={styles.card}>
+            <img src={image} alt={title} />
+            <h3>{shortenText(title)} </h3>
+            <p>{price} $</p>
+            <div className={styles.actions}>
+                <Link to={`/products/${id}`}>
+                    <TbListDetails />
+                </Link>
+                <div>
+                    <button onClick={() => { dispatch({ type: "ADD_ITEM", payload: data }) }}>
+                        <TbShoppingBagCheck />
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default Card
