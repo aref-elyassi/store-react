@@ -1,7 +1,16 @@
+import BasketCard from "../components/BasketCard"
+import { useCart } from "../context/CartContext"
+
 function Checkout() {
+  const [state,dispatch]=useCart()
+const clickHandler=(type,payload)=>{
+dispatch({type,payload})
+}
   return (
     <div>
-      <h1>Checkout</h1>
+     <div>
+      {state.selectedItems.map(product=><BasketCard data={product} clickHandler={clickHandler}/>)}
+     </div>
     </div>
   )
 }
